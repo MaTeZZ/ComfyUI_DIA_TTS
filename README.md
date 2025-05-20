@@ -1,9 +1,7 @@
 # DIA Voice Clone ComfyUI Node
-
 This custom node integrates the [DIA (Diffusion Image Analysis) voice cloning model](https://github.com/nari-labs/dia) into ComfyUI.
 
 ## Features
-
 - Voice cloning with transcript input
 - TTS prompt generation
 - Adjustable parameters:
@@ -16,25 +14,28 @@ This custom node integrates the [DIA (Diffusion Image Analysis) voice cloning mo
 - Audio retiming with pitch preservation
 
 ## Installation
-
 1. Clone this repository into your ComfyUI custom nodes directory:
 ```bash
 cd /path/to/ComfyUI/custom_nodes/
 git clone https://github.com/MaTeZZ/ComfyUI_DIA_TTS.git
 ```
 
-2. Install the required dependencies:
+2. **Important**: Run the virtual environment activator first:
 ```bash
 cd ComfyUI_DIA_TTS
+python venv_activator.py
+```
+
+3. Install the required dependencies:
+```bash
 pip install -r requirements.txt
 ```
 
+> ⚠️ **Note**: The venv_activator.py script must be run after cloning or updating this repository. This sets up the necessary environment for the node to function properly.
+
 ## Usage
-
 ### DIA Voice Clone Node
-
 The node accepts AUDIO input and produces AUDIO output compatible with other ComfyUI audio nodes.
-
 1. Add the "DIA Voice Clone" node to your workflow
 2. Provide the following inputs:
    - **transcript**: The transcript of the voice sample you want to clone (must use [S1] and [S2] speaker tags)
@@ -47,30 +48,25 @@ The node accepts AUDIO input and produces AUDIO output compatible with other Com
    - **save_audio_file**: Whether to save the generated audio to disk
    - **filename_prefix**: Prefix for the saved audio file
    - **use_torch_compile**: Whether to use torch.compile for faster generation
-
 3. Connect the output to other audio nodes or use it directly
 
 ### DIA Voice Clone Advanced Node
-
 Includes all features of the standard node plus:
 - **max_tokens**: Maximum number of audio tokens to generate
 
 ### DIA Audio Retimer
-
 A utility node for adjusting audio speed:
 - **input_audio**: The audio to adjust
 - **preserve_pitch**: Whether to maintain the original pitch while changing speed
 - **speed**: Speed factor (0.3-3.0)
 
 ## Notes
-
 - The first run will download the DIA model and may take some time
 - For best results, provide a 5-10 second audio sample with a matching transcript
 - Always begin input text with `[S1]`, and alternate between `[S1]` and `[S2]` for dialogue
 - The model requires a GPU with sufficient VRAM (10+ GB recommended)
 
 ## Requirements
-
 - Python 3.x
 - PyTorch 2.x
 - ComfyUI
